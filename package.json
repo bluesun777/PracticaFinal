@@ -1,0 +1,22 @@
+{
+  "name": "hola-docker",
+  "version": "1.0.0",
+  "private": true,
+  "description": "Hola Mundo con Node + Express, dockerizado y con CI/CD a Docker Hub + Render",
+  "main": "server.js",
+  "scripts": {
+    "start": "node server.js"
+  },
+  "keywords": [
+    "node",
+    "express",
+    "docker",
+    "render",
+    "github-actions"
+  ],
+  "author": "",
+  "license": "MIT",
+  "dependencies": {
+    "express": "^4.19.2"
+  }
+}
