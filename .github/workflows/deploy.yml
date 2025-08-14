@@ -1,26 +1,27 @@
-name: Build and Deploy
+name: Build and Deploy to Docker Hub
 
 on:
   push:
     branches:
-      - main
+      - main  # Cambia si tu rama principal no se llama main
 
 jobs:
-  build-and-push:
+  build:
     runs-on: ubuntu-latest
+
     steps:
-      - name: Checkout code
-        uses: actions/checkout@v3
+      # 1️⃣ Descargar el código
+      - name: Checkout repository
+        uses: actions/checkout@v4
 
-      - name: Login to Docker Hub
-        uses: docker/login-action@v2
-        with:
-          username: ${{ secrets.DOCKER_USERNAME }}
-          password: ${{ secrets.DOCKER_PASSWORD }}
+      # 2️⃣ Login en Docker Hub
+      - name: Log in to Docker Hub
+        run: echo "${{ secrets.DOCKER_PASSWORD }}" | docker login -u "${{ secrets.DOCKER_USERNAME }}" --password-stdin
 
-      - name: Build and push Docker image
-        uses: docker/build-push-action@v4
-        with:
-          context: .
-          push: true
-          tags: bluesun777/hola-docker:latest
+      # 3️⃣ Construir imagen Docker
+      - name: Build Docker image
+        run: docker build -t bluesun777/hola-docker:latest .
+
+      # 4️⃣ Subir imagen a Docker Hub
+      - name: Push Docker image
+        run: docker push bluesun777/hola-docker:latest
